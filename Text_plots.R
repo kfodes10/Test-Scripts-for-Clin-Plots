@@ -12,36 +12,52 @@ data$Gene<-as.character(data$Gene)
 data$Genotype<-as.character(data$Genotype)
 
 data$rownumber<-c(1:nrow(data))
-data$x<-1
-
-
-p<-ggplot(data, aes(x=colnumber,y=rownumber, label=Gene))
-
-p +scale_y_discrete() +geom_text()
-
 data$colnumber<-1
 
-p<-ggplot(data, aes(x=colnumber,y=rownumber, label=SNP))
+p<-(ggplot(data, aes(x=colnumber,y=rownumber, label=Gene)) +scale_y_discrete() +geom_text()+
+      theme(axis.title.x=element_blank(),
+            axis.text.x=element_blank(),
+            axis.ticks.x=element_blank(),plot.margin = unit(c(0,0,0,0), "cm"),plot.background = element_rect(colour = "white",fill = "white"),panel.background = element_rect(colour = "white",fill = "white"))+ylab(NULL)+labs(title="Gene"))
 
-p +scale_y_discrete() +geom_text()
+
+SNP<-(ggplot(data, aes(x=colnumber,y=rownumber, label=SNP)) +scale_y_discrete() +geom_text()+
+        theme(axis.title.x=element_blank(),
+              axis.text.x=element_blank(),
+              axis.ticks.x=element_blank(),plot.margin = unit(c(0,0,0,0), "cm"),plot.background = element_rect(colour = "white",fill = "white"),panel.background = element_rect(colour = "white",fill = "white"))+ylab(NULL)+labs(title="SNP"))
 
 
-p<-ggplot(data, aes(x=colnumber,y=rownumber, label=Genotype))
+Genotype<-(ggplot(data, aes(x=colnumber,y=rownumber, label=Genotype))+scale_y_discrete() +geom_text()
+           +
+             theme(axis.title.x=element_blank(),
+                   axis.text.x=element_blank(),
+                   axis.ticks.x=element_blank(),plot.margin = unit(c(0,0,0,0), "cm"),plot.background = element_rect(colour = "white",fill = "white"),panel.background = element_rect(colour = "white",fill = "white"))+ylab(NULL)+labs(title="Genotype"))
+LR<-(ggplot(data, aes(x=colnumber,y=rownumber, label=LR)) +scale_y_discrete() +geom_text()+
+       theme(axis.title.x=element_blank(),
+             axis.text.x=element_blank(),
+             axis.ticks.x=element_blank(),plot.margin = unit(c(0,0,0,0), "cm"),plot.background = element_rect(colour = "white",fill = "white"),panel.background = element_rect(colour = "white",fill = "white"))+ylab(NULL)+labs(title="LR"))
 
-p +scale_y_discrete() +geom_text()
+Studies<-(ggplot(data, aes(x=colnumber,y=rownumber, label=Studies))+scale_y_discrete() +geom_text()+
+            theme(axis.title.x=element_blank(),
+                  axis.text.x=element_blank(),
+                  axis.ticks.x=element_blank(),plot.margin = unit(c(0,0,0,0), "cm"),plot.background = element_rect(colour = "white",fill = "white"),panel.background = element_rect(colour = "white",fill = "white"))+ylab(NULL)+labs(title="Studies"))
 
-p<-ggplot(data, aes(x=colnumber,y=rownumber, label=LR))
+Samples<-(ggplot(data, aes(x=colnumber,y=rownumber, label=Samples))+scale_y_discrete() +geom_text()+
+            theme(axis.title.x=element_blank(),
+                  axis.text.x=element_blank(),
+                  axis.ticks.x=element_blank(),plot.margin = unit(c(0,0,0,0), "cm"),plot.background = element_rect(colour = "white",fill = "white"),panel.background = element_rect(colour = "white",fill = "white"))+ylab(NULL)+labs(title="Samples"))
 
-p +scale_y_discrete() +geom_text()
+PTB<-(ggplot(data, aes(x=colnumber,y=rownumber, label=PTB)) +scale_y_discrete() +geom_text()+
+        theme(axis.title.x=element_blank(),
+              axis.text.x=element_blank(),
+              axis.ticks.x=element_blank(),plot.margin = unit(c(0,0,0,0), "cm"),plot.background = element_rect(colour = "white", fill="white"),panel.background = element_rect(colour = "white",fill = "white"))+ylab(NULL)+labs(title="PTB"))
 
-p<-ggplot(data, aes(x=colnumber,y=rownumber, label=Studies))
-
-p +scale_y_discrete() +geom_text()
-
-p<-ggplot(data, aes(x=colnumber,y=rownumber, label=Samples))
-
-p +scale_y_discrete() +geom_text()
-
-p<-ggplot(data, aes(x=colnumber,y=rownumber, label=PTB))
-
-p +scale_y_discrete() +geom_text()
+grid.newpage()
+pushViewport(viewport(layout=grid.layout(1,7)))
+vplayout<-function(x,y) viewport(layout.pos.row=x,layout.pos.col=y)
+print(p,vp=vplayout(1,1))
+print(SNP,vp=vplayout(1,2))
+print(Genotype,vp=vplayout(1,3))
+print(LR,vp=vplayout(1,4))
+print(Studies,vp=vplayout(1,5))
+print(Samples,vp=vplayout(1,6))
+print(PTB,vp=vplayout(1,7))
